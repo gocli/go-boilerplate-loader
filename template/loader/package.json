@@ -21,6 +21,7 @@
     "cli",
     "go"
   ],
+  "author": "<%= author %>",
   "license": "MIT",
   "files": [
     "lib"

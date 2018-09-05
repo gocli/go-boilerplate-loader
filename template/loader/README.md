@@ -28,5 +28,5 @@ $ go <%= packageName %> <source> <destination> [options]
 
 ## License
 
-MIT
+MIT © <%= author %>
 

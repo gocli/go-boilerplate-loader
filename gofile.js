@@ -13,10 +13,12 @@ go.registerCommand('install', async () => {
   console.log('Welcome! To create a new loader answer few questions:')
 
   const name = await go.ask('What this loader will load?')
+  const author = await go.ask('What is your name (to fill the Author field')
   const coveralls = await go.confirm('Do you want to use Coveralls?')
     ? await go.ask('Enter Coveralls repository token:') : false
 
   const context = {
+    author,
     coveralls,
     packageName: formatPackageName(name),
     variableName: formatVariableName(name)
