@@ -16,19 +16,19 @@ describe('Loader', () => {
 
     mockIsValidTarget.mockResolvedValue(null)
     mockParseArgs.mockReturnValue({
-      _: ['LOADER_NAME', source, destination],
+      _: ['<%= packageName %>', source, destination],
       install: true
     })
   })
 
   it('rejects if source is not specified', () => {
-    mockParseArgs.mockReturnValue({ _: ['LOADERNAME'] })
+    mockParseArgs.mockReturnValue({ _: ['<%= packageName %>'] })
     return expect(loader.execute(args))
       .rejects.toThrow('failed to load: source is not specified')
   })
 
   it('rejects if destination is not specified', () => {
-    mockParseArgs.mockReturnValue({ _: ['LOADERNAME', source] })
+    mockParseArgs.mockReturnValue({ _: ['<%= packageName %>', source] })
     return expect(loader.execute(args))
       .rejects.toThrow('failed to load: destination is not specified')
   })

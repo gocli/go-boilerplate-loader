@@ -1,7 +1,7 @@
 const parseArgs = require('./parse-args')
 const isValidTarget = require('./is-valid-target')
 
-const loadLOADERNAME = ({ args }) => {
+const load<%= variableName %> = ({ args }) => {
   const argv = parseArgs(args)
   const source = argv._[1]
   const destination = argv._[2]
@@ -25,4 +25,4 @@ const loadLOADERNAME = ({ args }) => {
     })
 }
 
-module.exports.execute = loadLOADERNAME
+module.exports.execute = load<%= variableName %>

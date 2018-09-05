@@ -1,17 +1,17 @@
 {
-  "name": "go-loader-LOADERNAME",
+  "name": "go-loader-<%= packageName %>",
   "version": "0.0.0",
-  "description": "Go loader for LOADERNAME",
+  "description": "Go loader for <%= variableName %>",
   "main": "./lib/loader.js",
   "scripts": {
-    "ci": "npm run lint:ci && npm run unit:ci",
+    "ci": "npm run lint:ci && npm run <%= coveralls ? 'unit:ci' : 'unit' %>",
     "coverage": "npm run unit; opn coverage/lcov-report/index.html",
     "lint": "standard -v | snazzy",
     "lint:ci": "standard",
     "prepublishOnly": "npm run test",
     "test": "npm run lint && npm run unit",
-    "unit": "jest --coverage",
-    "unit:ci": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "unit": "jest --coverage",<% if (coveralls) { %>
+    "unit:ci": "jest --coverage --coverageReporters=text-lcov | coveralls",<% } %>
     "unit:watch": "jest --coverage --watchAll"
   },
   "keywords": [
@@ -28,8 +28,8 @@
   "dependencies": {
     "minimist": "1.2.0"
   },
-  "devDependencies": {
-    "coveralls": "^3.0.2",
+  "devDependencies": {<% if (coveralls) { %>
+    "coveralls": "^3.0.2",<% } %>
     "jest": "^22.4.2",
     "opn-cli": "^3.1.0",
     "snazzy": "^7.1.1",

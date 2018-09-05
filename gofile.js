@@ -22,5 +22,8 @@ go.registerCommand('install', async () => {
     variableName: formatVariableName(name)
   }
 
-  await go.processTemplates(context, 'templates/loader', 'ldr')
+  await go.processTemplates(context, { cwd: 'template/loader' }, 'ldr/')
+  if (coveralls) {
+    await go.processTemplates(context, 'template/.coveralls.yml', 'ldr/.coveralls.yml')
+  }
 })
