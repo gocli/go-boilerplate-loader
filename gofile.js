@@ -16,12 +16,14 @@ go.registerCommand('install', async () => {
   const author = await go.ask('What is your name (to fill the Author field')
   const coveralls = await go.confirm('Do you want to use Coveralls?')
     ? await go.ask('Enter Coveralls repository token:') : false
+  const packageName = formatPackageName(name)
+  const variableName = formatVariableName(name)
 
   const context = {
     author,
     coveralls,
-    packageName: formatPackageName(name),
-    variableName: formatVariableName(name)
+    packageName,
+    variableName
   }
 
   await go.processTemplates(context, { cwd: 'template/loader' }, './')
@@ -34,5 +36,9 @@ go.registerCommand('install', async () => {
   await go.remove('.goconfig.json')
   await go.remove('gofile.js')
 
-  console.log('Install NPM dependencies and you are ready to start developing!')
+  console.log(`The Loader boilerplate is installed to ${__dirname}`)
+  console.log('To start developing, go to that folder and run:')
+  console.log(' $ npm install')
+  console.log(' $ npm link')
+  console.log(` $ go ${packageName}`)
 })
