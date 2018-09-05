@@ -22,8 +22,13 @@ go.registerCommand('install', async () => {
     variableName: formatVariableName(name)
   }
 
-  await go.processTemplates(context, { cwd: 'template/loader' }, 'ldr/')
+  await go.processTemplates(context, { cwd: 'template/loader' }, './')
   if (coveralls) {
-    await go.processTemplates(context, 'template/.coveralls.yml', 'ldr/.coveralls.yml')
+    await go.processTemplates(context, 'template/.coveralls.yml', './.coveralls.yml')
   }
+
+  await go.remove('template')
+  await go.remove('node_modules')
+  await go.remove('.goconfig.json')
+  await go.remove('gofile.js')
 })
