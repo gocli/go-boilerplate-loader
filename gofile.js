@@ -31,4 +31,6 @@ go.registerCommand('install', async () => {
   await go.remove('node_modules')
   await go.remove('.goconfig.json')
   await go.remove('gofile.js')
+
+  console.log('Install NPM dependencies and you are ready to start developing!')
 })
