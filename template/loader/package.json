@@ -20,8 +20,8 @@
     "scaffold",
     "cli",
     "go"
-  ],
-  "author": "<%= author %>",
+  ],<% if (author) { %>
+  "author": "<%= author %>",<% } %>
   "license": "MIT",
   "files": [
     "lib"

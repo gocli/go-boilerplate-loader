@@ -17,7 +17,7 @@ const load<%= variableName %> = ({ args }) => {
   return isValidTarget(destination)
     .then(() => {
       // TODO: You may want to change this
-      console.log(`loading ${source} to ${destination}`)
+      console.log(`TODO: load ${source} to ${destination} with given options:`, argv)
     })
     .then(() => ({ path: destination, install: argv.install }))
     .catch((error) => {

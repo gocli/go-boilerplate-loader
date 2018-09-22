@@ -4,7 +4,7 @@ const formatPackageName = name => name
   .replace(/[^a-z\d]+/gi, '-')
   .toLowerCase()
 
-const formatVariableName = name => formatPackageName(name)
+const formatVariableName = name => name
   .split('-')
   .map(word => word.slice(0, 1).toUpperCase() + word.slice(1))
   .join('')
@@ -12,12 +12,15 @@ const formatVariableName = name => formatPackageName(name)
 go.registerCommand('install', async () => {
   console.log('Welcome! To create a new loader answer few questions:')
 
-  const name = await go.ask('What this loader will load?')
-  const author = await go.ask('What is your name (to fill the Author field')
-  const coveralls = await go.confirm('Do you want to use Coveralls?')
-    ? await go.ask('Enter Coveralls repository token:') : false
-  const packageName = formatPackageName(name)
-  const variableName = formatVariableName(name)
+  const packageName = await go.ask({
+    message: 'What this loader will load?',
+    filter: input => formatPackageName(input),
+    validate: input => formatPackageName(input).replace(/\-/g, '').length === 0
+      ? 'Name must consist of latin characters and numbers' : true
+  })
+  const author = await go.ask('Author name to set to package.json (optional):')
+  const coveralls = await go.ask('Enter Coveralls repository token (optional):')
+  const variableName = formatVariableName(packageName)
 
   const context = {
     author,
@@ -36,9 +39,10 @@ go.registerCommand('install', async () => {
   await go.remove('.goconfig.json')
   await go.remove('gofile.js')
 
-  console.log(`The Loader boilerplate is installed to ${__dirname}`)
-  console.log('To start developing, go to that folder and run:')
+  console.log('The Loader boilerplate has been installed!')
+  console.log('Start developing your loader by executing these commands:')
+  console.log(` $ cd ${__dirname}`)
   console.log(' $ npm install')
-  console.log(' $ npm link')
-  console.log(` $ go ${packageName}`)
+  console.log(' $ npm link # make it globally available')
+  console.log(` $ go ${packageName} source dist --no-install # example of executing the loader`)
 })
